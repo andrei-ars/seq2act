@@ -45,7 +45,7 @@ flags.DEFINE_integer("shuffle_size", 2, "shuffle_size")
 flags.DEFINE_boolean("boost_input", False, "boost_input")
 
 
-def continuous_eval(experiment_dir):
+def prediction(experiment_dir):
   """Evaluate until checkpoints stop being produced."""
   for ckpt_path in trainer_lib.next_checkpoint(experiment_dir,
                                                timeout_mins=-1):
@@ -152,10 +152,13 @@ def train(experiment_dir):
 
 def main(_):
   """The main function."""
-  if FLAGS.exp_mode == "train":
-    train(FLAGS.experiment_dir)
-  elif FLAGS.exp_mode == "eval":
-    continuous_eval(FLAGS.experiment_dir)
+  #if FLAGS.exp_mode == "train":
+  #  train(FLAGS.experiment_dir)
+  #elif FLAGS.exp_mode == "eval":
+  #  continuous_eval(FLAGS.experiment_dir)
+  prediction(FLAGS.experiment_dir)
 
 if __name__ == "__main__":
   tf.app.run()
+
+# sh seq2act/bin/train_seq2act.sh --experiment_dir=/data/venv/seq2act/ckpt_hparams/grounding/
