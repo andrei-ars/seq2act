@@ -86,12 +86,13 @@ def prediction(experiment_dir):
     
     print("\nSTART PREDICTION\n")
     
-    estimator.predict(input_fn=predict_input_fn,
+    result = estimator.predict(input_fn=predict_input_fn,
                        #steps=FLAGS.eval_steps,
                        #checkpoint_path=ckpt_path,
                        #name=FLAGS.eval_name
                        )
 
+    print(result)
     print("\nEND PREDICTION\n")
 
 
