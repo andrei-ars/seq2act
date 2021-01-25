@@ -18,6 +18,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import numpy as np
 from tensor2tensor.utils import trainer_lib
 import tensorflow.compat.v1 as tf
 
