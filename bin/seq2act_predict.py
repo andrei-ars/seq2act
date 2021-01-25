@@ -59,6 +59,7 @@ def common_input_fn(features, training=True, batch_size=256):
     return features
 
 
+
 def prediction(experiment_dir):
   """Evaluate until checkpoints stop being produced."""
   for ckpt_path in trainer_lib.next_checkpoint(experiment_dir,
@@ -81,16 +82,23 @@ def prediction(experiment_dir):
     features = ["Click button OK", "Navigate to settings", "Open app drawer"]
     predict_input_fn = lambda: common_input_fn(features, training=False)
 
+    my_input_fn = tf.estimator.inputs.numpy_input_fn(
+        x={"text": "Click button OK"},
+        shuffle=False,
+        batch_size=1)
+
     estimator = create_estimator(experiment_dir, hparams,
                                  decode_length=FLAGS.decode_length)
     
     print("\nSTART PREDICTION\n")
     
-    results = estimator.predict(input_fn=predict_input_fn,
-                       #steps=FLAGS.eval_steps,
-                       #checkpoint_path=ckpt_path,
-                       #name=FLAGS.eval_name
-                       )
+    results = estimator.predict(
+                      input_fn=my_input_fn,
+                      #input_fn=predict_input_fn,
+                      #steps=FLAGS.eval_steps,
+                      #checkpoint_path=ckpt_path,
+                      #name=FLAGS.eval_name
+                      )
 
     print(results)
     for result in results:
