@@ -89,7 +89,7 @@ def prediction(experiment_dir):
         batch_size=1)
 
     predict_input_fn = tf.estimator.inputs.numpy_input_fn(
-            {"descriptions": np.array(raw_texts).astype(np.str)}, 
+            {"input_refs": np.array(raw_texts).astype(np.str)}, 
             shuffle=False,
             batch_size=1)
 
