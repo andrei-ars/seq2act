@@ -83,7 +83,7 @@ def prediction(experiment_dir):
 
     estimator = create_estimator(experiment_dir, hparams,
                                  decode_length=FLAGS.decode_length)
-    estimator.evaluate(input_fn=predict_input_fn,
+    estimator.predict(input_fn=predict_input_fn,
                        steps=FLAGS.eval_steps,
                        checkpoint_path=ckpt_path,
                        name=FLAGS.eval_name)
