@@ -85,7 +85,7 @@ def prediction(experiment_dir):
                                  decode_length=FLAGS.decode_length)
     estimator.predict(input_fn=predict_input_fn,
                        #steps=FLAGS.eval_steps,
-                       checkpoint_path=ckpt_path,
+                       #checkpoint_path=ckpt_path,
                        #name=FLAGS.eval_name
                        )
 
