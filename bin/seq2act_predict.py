@@ -79,13 +79,18 @@ def prediction(experiment_dir):
         load_screen=hparams.load_screen,
         load_dom_dist=(hparams.screen_encoder == "gcn"))
 
-    features = ["Click button OK", "Navigate to settings", "Open app drawer"]
-    predict_input_fn = lambda: common_input_fn(features, training=False)
+    raw_texts = ["Click button OK", "Navigate to settings", "Open app drawer"]
+    predict1111111_input_fn = lambda: common_input_fn(features, training=False)
 
     my_input_fn = tf.estimator.inputs.numpy_input_fn(
-        x={"text": "Click button OK"},
+        x={"x": "Click button OK"},
         shuffle=False,
         batch_size=1)
+
+    predict_input_fn = tf.estimator.inputs.numpy_input_fn(
+            {"descriptions": np.array(raw_texts).astype(np.str)}, 
+            shuffle=False,
+            batch_size=1)
 
     estimator = create_estimator(experiment_dir, hparams,
                                  decode_length=FLAGS.decode_length)
@@ -93,7 +98,7 @@ def prediction(experiment_dir):
     print("\nSTART PREDICTION\n")
     
     results = estimator.predict(
-                      input_fn=my_input_fn,
+                      input_fn=predict_input_fn,
                       #input_fn=predict_input_fn,
                       #steps=FLAGS.eval_steps,
                       #checkpoint_path=ckpt_path,
