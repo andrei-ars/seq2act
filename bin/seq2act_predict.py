@@ -45,6 +45,20 @@ flags.DEFINE_integer("shuffle_size", 2, "shuffle_size")
 flags.DEFINE_boolean("boost_input", False, "boost_input")
 
 
+def new111_input_fn(features, training=True, batch_size=256):
+    """An input function for training or evaluating"""
+    # Convert the inputs to a Dataset.
+    dataset = tf.data.Dataset.from_tensor_slices((dict(features), labels))
+    # Shuffle and repeat if you are in training mode.
+    if training:
+        dataset = dataset.shuffle(1000).repeat()
+    return dataset.batch(batch_size)
+
+
+def common_input_fn(features, training=True, batch_size=256):
+    return features
+
+
 def prediction(experiment_dir):
   """Evaluate until checkpoints stop being produced."""
   for ckpt_path in trainer_lib.next_checkpoint(experiment_dir,
@@ -63,9 +77,13 @@ def prediction(experiment_dir):
         load_extra=True,
         load_screen=hparams.load_screen,
         load_dom_dist=(hparams.screen_encoder == "gcn"))
+
+    features = ["Click button OK", "Navigate to settings", "Open app drawer"]
+    predict_input_fn = lambda: common_input_fn(features, training=False)
+
     estimator = create_estimator(experiment_dir, hparams,
                                  decode_length=FLAGS.decode_length)
-    estimator.evaluate(input_fn=eval_input_fn,
+    estimator.evaluate(input_fn=predict_input_fn,
                        steps=FLAGS.eval_steps,
                        checkpoint_path=ckpt_path,
                        name=FLAGS.eval_name)
@@ -161,4 +179,6 @@ def main(_):
 if __name__ == "__main__":
   tf.app.run()
 
-# sh seq2act/bin/train_seq2act.sh --experiment_dir=/data/venv/seq2act/ckpt_hparams/grounding/
+# sh seq2act/bin/train_seq2act.sh --experiment_dir=./seq2act/ckpt_hparams/grounding/
+# sh ./bin/train_seq2act.sh --experiment_dir=./ckpt_hparams/grounding/
+# python -m seq2act.bin.seq2act_predict --experiment_dir "./seq2act/ckpt_hparams/grounding/"

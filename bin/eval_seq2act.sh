@@ -31,12 +31,6 @@ gbash::init_google "$@"
 set -e
 set -x
 
-virtualenv -p python3 .
-source ./bin/activate
-
-pip install tensorflow
-pip install -r seq2act/requirements.txt
-
 python -m seq2act.bin.seq2act_train_eval --exp_mode "eval" \
                                          --experiment_dir "${FLAGS_experiment_dir}" \
                                          --eval_files "${FLAGS_eval_files}" \
