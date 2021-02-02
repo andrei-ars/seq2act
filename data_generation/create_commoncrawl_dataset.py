@@ -221,11 +221,12 @@ def _write_tasks_to_tf_example(id_tasks_dict, output_dir, num_shards, sharding):
   def write_task(task, shard_id):
     try:
       features = _task_to_features_dict(task, do_stats=True)
-      print("task: {}".format(task))
+      print("Task: {}".format(task))
       print("Write features: {}".format(features))
     except ValueError:
+      print("!!!ValueError")
       counters['ValueError'] += 1
-    else:      
+    else:
       tfproto = proto_utils.features_to_tf_example(features)
       tfrecord_writers[shard_id].write(tfproto.SerializeToString())
       counters['examples_count_in_dataset'] += 1
