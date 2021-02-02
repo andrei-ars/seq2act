@@ -136,7 +136,7 @@ def _task_to_features_dict(task, do_stats):
   for action in task['actions']:
     try:
       verb_id = common.ActionTypes[action.verb_type.upper().strip()]
-      print("verb_id:", verb_idverb_id)
+      print("verb_id:", verb_id)
     except KeyError:
       raise ValueError('Verb "%s" cannot be recognized.' % action.verb_type)
     if verb_id == common.ActionTypes.OTHERS:
