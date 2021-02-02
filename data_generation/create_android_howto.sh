@@ -29,3 +29,4 @@ python -m seq2act.data_generation.create_commoncrawl_dataset \
 --vocab_file=${PWD}"/seq2act/data_generation/commoncrawl_rico_vocab_subtoken_44462" \
 --output_dir=${PWD}"/seq2act/data/android_howto/tfexample/"
 
+
