@@ -214,10 +214,12 @@ def _compute_query_embedding(features, references, hparams, embed_scope=None):
   """
   pred_verb_refs = seq2act_reference.predict_refs(
       references["verb_area_logits"],
-      references["areas"]["starts"], references["areas"]["ends"])
+      references["areas"]["starts"], 
+      references["areas"]["ends"])
   pred_obj_refs = seq2act_reference.predict_refs(
       references["obj_area_logits"],
-      references["areas"]["starts"], references["areas"]["ends"])
+      references["areas"]["starts"], 
+      references["areas"]["ends"])
   input_embeddings, _ = common_embed.embed_tokens(
       features["task"], hparams.task_vocab_size, hparams.hidden_size, hparams,
       embed_scope=references["embed_scope"])
