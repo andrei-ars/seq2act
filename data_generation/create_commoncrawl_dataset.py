@@ -278,6 +278,7 @@ def _read_tasks(input_csv_file, input_instruction_json_file):
       if task_id in id_instruction_dict:
         row['instruction'] = id_instruction_dict[task_id]
         id_tasks_dict[task_id].append(row)
+        print("Read row: {}".format(id_tasks_dict))
         instruction_found += 1
       else:
         instruction_not_found += 1
