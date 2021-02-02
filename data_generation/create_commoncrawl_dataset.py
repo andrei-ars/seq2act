@@ -136,6 +136,7 @@ def _task_to_features_dict(task, do_stats):
   for action in task['actions']:
     try:
       verb_id = common.ActionTypes[action.verb_type.upper().strip()]
+      print("verb_id:", verb_idverb_id)
     except KeyError:
       raise ValueError('Verb "%s" cannot be recognized.' % action.verb_type)
     if verb_id == common.ActionTypes.OTHERS:
@@ -175,6 +176,7 @@ def _task_to_features_dict(task, do_stats):
 
   features['agreement_count'] = np.array([task['agreement-count']],
                                          dtype=np.int64)
+  print("features:", features)
 
   if do_stats:
     distributions['step_num'][len(task['actions'])] += 1
