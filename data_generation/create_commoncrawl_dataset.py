@@ -224,7 +224,8 @@ def _write_tasks_to_tf_example(id_tasks_dict, output_dir, num_shards, sharding):
       print("Task: {}".format(task))
       print("Write features: {}".format(features))
     except ValueError:
-      print("!!!ValueError")
+      print("!ValueError")
+      raise Exception()
       counters['ValueError'] += 1
     else:
       tfproto = proto_utils.features_to_tf_example(features)
