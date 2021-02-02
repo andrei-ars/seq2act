@@ -252,6 +252,7 @@ def _write_tasks_to_tf_example(id_tasks_dict, output_dir, num_shards, sharding):
       else:
         print("#2")
         shard_id = hash(task_id) % (num_shards -1) + 1
+        print(shard_id)
         for task in tasks:
           write_task(task, shard_id)
 
