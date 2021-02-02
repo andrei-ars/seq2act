@@ -240,7 +240,7 @@ def _write_tasks_to_tf_example(id_tasks_dict, output_dir, num_shards, sharding):
     # and then put the rest tasks to shard 1~9
     testing_count = 0
     for task_id, tasks in id_tasks_dict.items():
-      print(task_id, tasks)
+      print("\ntask_id, tasks:", task_id, tasks)
       if (testing_count < GOLD_NUM_IN_SHARD0 and
           tasks[0]['agreement-count'] == len(tasks) and len(tasks) >= 3):
         for task in tasks:
