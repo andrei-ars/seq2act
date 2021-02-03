@@ -224,7 +224,7 @@ def create_model_fn(hparams, compute_additional_loss_fn=None,
     input_count = tf.reduce_sum(
         tf.to_int32(tf.greater(features["input_refs"][:, :, 1],
                                features["input_refs"][:, :, 0])))
-    tf.summary.scalar("input_count", input_count)
+    tf.summary.scalar("****input_count", input_count)
     loss_dict, pred_dict, areas = seq2act_model.core_graph(
         features, hparams, mode, compute_additional_loss_fn)
     if mode == tf.estimator.ModeKeys.PREDICT:
